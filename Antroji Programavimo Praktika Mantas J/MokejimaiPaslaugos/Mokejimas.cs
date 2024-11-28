@@ -32,21 +32,8 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.MokejimaiPaslaugos
 
         public Mokejimas() { }
 
-        public Mokejimas(string mok_pavadinimas, string mok_matovienetas, float mok_ikainis, int mok_ID, int mok_vartotojoID, float mok_kiekis, DateTime mok_terminoPradzia, DateTime mok_terminoPabaiga, decimal mok_pilnaKaina, decimal mok_likutis)
-        {
-            this.mok_pavadinimas = mok_pavadinimas;
-            this.mok_matovienetas = mok_matovienetas;
-            this.mok_ikainis = mok_ikainis;
-            this.mok_vartotojoID = mok_vartotojoID;
-            this.mok_kiekis = mok_kiekis;
-            this.mok_terminoPradzia = mok_terminoPradzia;
-            this.mok_terminoPabaiga = mok_terminoPabaiga;
-            this.mok_pilnaKaina = pasl_countPilnaKaina(mok_kiekis, mok_ikainis);
-            this.mok_likutis = pasl_countPilnaKaina(mok_kiekis, mok_ikainis);
-        }
-
         //Metodai
-
+        /*
         private decimal pasl_countPilnaKaina(float kiekis, float kaina)
         {
             decimal apvalinta = (decimal)(kiekis * kaina);
@@ -69,6 +56,6 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.MokejimaiPaslaugos
                 mok_Likutis -= mokamaSuma;
             }
         }
-
+        */
     }
 }

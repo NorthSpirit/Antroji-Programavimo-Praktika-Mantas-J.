@@ -1,7 +1,9 @@
 ﻿using Antroji_Programavimo_Praktika_Mantas_J_.Aidles;
+using Antroji_Programavimo_Praktika_Mantas_J_.Aidles.VartLogic;
 using Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Vadybininkams;
 using Antroji_Programavimo_Praktika_Mantas_J_.Grupes;
 using Antroji_Programavimo_Praktika_Mantas_J_.MokejimaiPaslaugos;
+using Antroji_Programavimo_Praktika_Mantas_J_.Vartotojas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -110,12 +112,17 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams
 
         private void dtgrd_Paslaugos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            paslaugaSelected = selectorForAll.selectItem<Paslauga>(dtgrd_Paslaugos, e);
+            if (paslaugaSelected != null) lbl_pasirinktasMokestis.Text = "Pasirinktas Mokestis: " + paslaugaSelected.pasl_pavadinimas;
+            else lbl_pasirinktasMokestis.Text = "Pasirinktas Mokestis: ";
+            /*
             if (e.RowIndex >= 0)
             {
                 var pasirinktaEilute = dtgrd_Paslaugos.Rows[e.RowIndex];
                 paslaugaSelected = (Paslauga)pasirinktaEilute.DataBoundItem;
                 lbl_pasirinktasMokestis.Text = "Pasirinktas Mokestis: " + paslaugaSelected.pasl_pavadinimas;
             }
+            */
         }
 
         private void btn_atstatyti_Click(object sender, EventArgs e)

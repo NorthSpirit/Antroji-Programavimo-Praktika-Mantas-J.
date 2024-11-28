@@ -38,6 +38,7 @@
             btn_isaugoti = new Button();
             btn_atsaukti = new Button();
             lbl_klaida = new Label();
+            lbl_error = new Label();
             SuspendLayout();
             // 
             // label1
@@ -126,11 +127,21 @@
             lbl_klaida.Size = new Size(0, 15);
             lbl_klaida.TabIndex = 9;
             // 
+            // lbl_error
+            // 
+            lbl_error.AutoSize = true;
+            lbl_error.Location = new Point(23, 253);
+            lbl_error.Name = "lbl_error";
+            lbl_error.Size = new Size(38, 15);
+            lbl_error.TabIndex = 10;
+            lbl_error.Text = "label4";
+            // 
             // Paslaugos_Keitimas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(572, 289);
+            Controls.Add(lbl_error);
             Controls.Add(lbl_klaida);
             Controls.Add(btn_atsaukti);
             Controls.Add(btn_isaugoti);
@@ -160,5 +171,6 @@
         private Button btn_isaugoti;
         private Button btn_atsaukti;
         private Label lbl_klaida;
+        private Label lbl_error;
     }
 }

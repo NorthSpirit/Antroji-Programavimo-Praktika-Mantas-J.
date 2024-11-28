@@ -16,9 +16,9 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Vadybininkams
     {
         public Paslauga paslaugaSelected { get; set; }
         public MyDBContext context { get; set; }
-        string tempPavadinimas;
-        string tempMatoVienetas;
-        float tempIkainis;
+        private string tempPavadinimas;
+        private string tempMatoVienetas;
+        private string tempIkainis;
         public Paslaugos_Keitimas()
         {
             InitializeComponent();
@@ -28,46 +28,31 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Vadybininkams
         {
             tempPavadinimas = paslaugaSelected.pasl_pavadinimas;
             tempMatoVienetas = paslaugaSelected.pasl_matovienetas;
-            tempIkainis = paslaugaSelected.pasl_ikainis;
-
-            tb_pavadinimas.Text = paslaugaSelected.pasl_pavadinimas;
-            tb_matoVienetas.Text = paslaugaSelected.pasl_matovienetas;
-            tb_Ikaitis.Text = paslaugaSelected.pasl_ikainis.ToString();
+            tempIkainis = paslaugaSelected.pasl_ikainis.ToString();
+            lbl_error.Text = "";
+            sustatytiTexta();
         }
 
         private void btn_atstatyti_Click(object sender, EventArgs e)
         {
-            paslaugaSelected.pasl_pavadinimas = tempPavadinimas;
-            paslaugaSelected.pasl_matovienetas = tempMatoVienetas;
-            paslaugaSelected.pasl_ikainis = tempIkainis;
-            lbl_klaida.Text = "Mokestis atstatyas.";
-            context.SaveChanges();
-
-            tb_pavadinimas.Text = paslaugaSelected.pasl_pavadinimas;
-            tb_matoVienetas.Text = paslaugaSelected.pasl_matovienetas;
-            tb_Ikaitis.Text = paslaugaSelected.pasl_ikainis.ToString();
+            lbl_error.Text = PaslaugaUpdateService.UpdatePaslauga(context, tempPavadinimas, tempMatoVienetas, tempIkainis, paslaugaSelected);
+            sustatytiTexta();
         }
 
         private void btn_isaugoti_Click(object sender, EventArgs e)
         {
-            float parsedIkainis;
-            if (float.TryParse(tb_Ikaitis.Text, out parsedIkainis))
-            {
-                paslaugaSelected.pasl_ikainis = parsedIkainis;
-                paslaugaSelected.pasl_pavadinimas = tb_pavadinimas.Text;
-                paslaugaSelected.pasl_matovienetas = tb_matoVienetas.Text;
-                context.SaveChanges();
-                lbl_klaida.Text = "Mokestis pakeistas.";
-            }
-            else
-            {
-                lbl_klaida.Text = "KLAIDA: ikainis turi būti nurodytas skaičiumi.";
-            }
+            lbl_error.Text = PaslaugaUpdateService.UpdatePaslauga(context, tb_pavadinimas.Text, tb_matoVienetas.Text, tb_Ikaitis.Text, paslaugaSelected);
         }
 
         private void btn_atsaukti_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        private void sustatytiTexta()
+        {
+            tb_pavadinimas.Text = paslaugaSelected.pasl_pavadinimas;
+            tb_matoVienetas.Text = paslaugaSelected.pasl_matovienetas;
+            tb_Ikaitis.Text = paslaugaSelected.pasl_ikainis.ToString();
         }
     }
 }

@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vartotojai;
+using Antroji_Programavimo_Praktika_Mantas_J_.MokejimaiPaslaugos;
+using Antroji_Programavimo_Praktika_Mantas_J_.Aidles.VartLogic;
 
 namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vadybininkai
 {
@@ -155,7 +157,7 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vadybin
                 context.Naudotojai.Remove(vadybininkasSelected);
                 context.SaveChanges();
                 vadybininkasSelected = null;
-                lbl_pasirinktasGyventojas.Text = "Pasirinktas Gyventojas: ";
+                lbl_pasirinktasGyventojas.Text = "Pasirinktas Vadybininkas: ";
                 atnaujitiGyventojusVisus();
             }
         }
@@ -167,12 +169,9 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vadybin
 
         private void dtgrd_gyventojai_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                var pasirinktaEilute = dtgrd_gyventojai.Rows[e.RowIndex];
-                vadybininkasSelected = (Vadybininkas)pasirinktaEilute.DataBoundItem;
-                lbl_pasirinktasGyventojas.Text = "Pasirinktas Gyventojas: " + vadybininkasSelected.naud_vardas + " " + vadybininkasSelected.naud_pavarde;
-            }
+            vadybininkasSelected = selectorForAll.selectItem<Vadybininkas>(dtgrd_gyventojai, e);
+            if (vadybininkasSelected != null) lbl_pasirinktasGyventojas.Text = "Pasirinktas Vadybininkas: " + vadybininkasSelected.naud_vardas + " " + vadybininkasSelected.naud_pavarde;
+            else lbl_pasirinktasGyventojas.Text = "Pasirinktas Vadybininkas: ";
         }
     }
 }

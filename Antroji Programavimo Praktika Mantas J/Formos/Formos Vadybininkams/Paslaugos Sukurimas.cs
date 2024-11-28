@@ -24,7 +24,6 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Vadybininkams
 
         private void Paslaugos_Sukurimas_Load(object sender, EventArgs e)
         {
-
         }
 
         private void btn_atsaukti_Click(object sender, EventArgs e)
@@ -34,24 +33,7 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Vadybininkams
 
         private void btn_isaugoti_Click(object sender, EventArgs e)
         {
-            float parsedIkainis;
-            if (float.TryParse(tb_Ikaitis.Text, out parsedIkainis))
-            {
-                Paslauga naujaPaslauga = new Paslauga
-                {
-                    pasl_pavadinimas = tb_pavadinimas.Text,
-                    pasl_matovienetas = tb_matoVienetas.Text,
-                    pasl_ikainis = parsedIkainis,
-                    pasl_vartGID = naujas_vartGID
-                };
-                context.Paslaugos.Add(naujaPaslauga);
-                context.SaveChanges();
-                lbl_klaida.Text = "Mokestis sukurtas.";
-            }
-            else
-            {
-                lbl_klaida.Text = "KLAIDA: ikainis turi būti nurodytas skaičiumi.";
-            }
+            lbl_klaida.Text = PaslaugaCreationService.CreatePaslauga(context,tb_pavadinimas.Text,tb_matoVienetas.Text, tb_Ikaitis.Text, naujas_vartGID);
         }
     }
 }

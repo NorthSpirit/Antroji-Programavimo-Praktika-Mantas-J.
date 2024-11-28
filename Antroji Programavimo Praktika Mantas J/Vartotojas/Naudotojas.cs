@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Antroji_Programavimo_Praktika_Mantas_J_.Vartotojas
 {
-    public class Naudotojas
+    public abstract class Naudotojas
     {
         public int naud_ID {  get; set; }
         public string naud_vardas { get; set; }
@@ -20,18 +20,6 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Vartotojas
         //Konstruktoriai
 
         public Naudotojas() { }
-
-        public Naudotojas(int naud_ID, string naud_vardas, string naud_pavarde, string naud_slaptazodis, string naud_prisijungimoVardas, string naud_elPastas, string naud_telNumeris, string naud_tipas)
-        {
-            this.naud_ID = naud_ID;
-            this.naud_vardas = naud_vardas;
-            this.naud_pavarde = naud_pavarde;
-            this.naud_slaptazodis = naud_slaptazodis;
-            this.naud_prisijungimoVardas = naud_prisijungimoVardas;
-            this.naud_elPastas = naud_elPastas;
-            this.naud_telNumeris = naud_telNumeris;
-            this.naud_tipas = naud_tipas;
-        }
 
     }
 }

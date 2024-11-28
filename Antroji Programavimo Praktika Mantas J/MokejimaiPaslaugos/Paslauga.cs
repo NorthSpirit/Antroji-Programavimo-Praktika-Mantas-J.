@@ -19,13 +19,6 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.MokejimaiPaslaugos
 
         public Paslauga() { }
 
-        public Paslauga(int pasl_ID, string pasl_pavadinimas, string pasl_matovienetas, float pasl_ikainis)
-        {
-            this.pasl_ID = pasl_ID;
-            this.pasl_pavadinimas = pasl_pavadinimas;
-            this.pasl_matovienetas = pasl_matovienetas;
-            this.pasl_ikainis = pasl_ikainis;
-        }
         //Navigatorius
         public VartotojuGrupe VartotojuGrupe { get; set; }
     }

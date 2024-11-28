@@ -37,15 +37,19 @@
             label7 = new Label();
             label8 = new Label();
             label9 = new Label();
-            textBox1 = new TextBox();
+            tbVardas = new TextBox();
             lbl_pakeistiKa = new Label();
             btb_pakeisti = new Button();
+            label10 = new Label();
+            tbPavarde = new TextBox();
+            tb_elPastas = new TextBox();
+            tb_telNr = new TextBox();
             SuspendLayout();
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(12, 131);
+            label6.Location = new Point(44, 148);
             label6.Name = "label6";
             label6.Size = new Size(74, 15);
             label6.TabIndex = 11;
@@ -55,7 +59,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(12, 107);
+            label5.Location = new Point(60, 119);
             label5.Name = "label5";
             label5.Size = new Size(58, 15);
             label5.TabIndex = 10;
@@ -65,16 +69,16 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(12, 82);
+            label4.Location = new Point(15, 90);
             label4.Name = "label4";
-            label4.Size = new Size(106, 15);
+            label4.Size = new Size(103, 15);
             label4.TabIndex = 9;
-            label4.Text = "Vartotojo Pavarde: ";
+            label4.Text = "Vartotojo Pavarde:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 58);
+            label3.Location = new Point(33, 61);
             label3.Name = "label3";
             label3.Size = new Size(85, 15);
             label3.TabIndex = 8;
@@ -101,7 +105,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(12, 170);
+            label7.Location = new Point(12, 192);
             label7.Name = "label7";
             label7.Size = new Size(171, 15);
             label7.TabIndex = 12;
@@ -110,7 +114,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(12, 194);
+            label8.Location = new Point(12, 216);
             label8.Name = "label8";
             label8.Size = new Size(115, 15);
             label8.TabIndex = 13;
@@ -119,23 +123,23 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(12, 220);
+            label9.Location = new Point(12, 242);
             label9.Name = "label9";
             label9.Size = new Size(145, 15);
             label9.TabIndex = 14;
             label9.Text = "Priskirtos Grupes Adresas: ";
             // 
-            // textBox1
+            // tbVardas
             // 
-            textBox1.Location = new Point(12, 277);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(268, 23);
-            textBox1.TabIndex = 17;
+            tbVardas.Location = new Point(124, 58);
+            tbVardas.Name = "tbVardas";
+            tbVardas.Size = new Size(236, 23);
+            tbVardas.TabIndex = 17;
             // 
             // lbl_pakeistiKa
             // 
             lbl_pakeistiKa.AutoSize = true;
-            lbl_pakeistiKa.Location = new Point(9, 254);
+            lbl_pakeistiKa.Location = new Point(9, 276);
             lbl_pakeistiKa.Name = "lbl_pakeistiKa";
             lbl_pakeistiKa.Size = new Size(83, 15);
             lbl_pakeistiKa.TabIndex = 16;
@@ -151,12 +155,45 @@
             btb_pakeisti.UseVisualStyleBackColor = true;
             btb_pakeisti.Click += btb_pakeisti_Click;
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(12, 341);
+            label10.Name = "label10";
+            label10.Size = new Size(0, 15);
+            label10.TabIndex = 18;
+            // 
+            // tbPavarde
+            // 
+            tbPavarde.Location = new Point(124, 87);
+            tbPavarde.Name = "tbPavarde";
+            tbPavarde.Size = new Size(236, 23);
+            tbPavarde.TabIndex = 19;
+            // 
+            // tb_elPastas
+            // 
+            tb_elPastas.Location = new Point(124, 116);
+            tb_elPastas.Name = "tb_elPastas";
+            tb_elPastas.Size = new Size(236, 23);
+            tb_elPastas.TabIndex = 20;
+            // 
+            // tb_telNr
+            // 
+            tb_telNr.Location = new Point(124, 145);
+            tb_telNr.Name = "tb_telNr";
+            tb_telNr.Size = new Size(236, 23);
+            tb_telNr.TabIndex = 21;
+            // 
             // Forma_Vadybininkams_2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(textBox1);
+            Controls.Add(tb_telNr);
+            Controls.Add(tb_elPastas);
+            Controls.Add(tbPavarde);
+            Controls.Add(label10);
+            Controls.Add(tbVardas);
             Controls.Add(lbl_pakeistiKa);
             Controls.Add(btb_pakeisti);
             Controls.Add(label9);
@@ -186,8 +223,12 @@
         private Label label7;
         private Label label8;
         private Label label9;
-        private TextBox textBox1;
+        private TextBox tbVardas;
         private Label lbl_pakeistiKa;
         private Button btb_pakeisti;
+        private Label label10;
+        private TextBox tbPavarde;
+        private TextBox tb_elPastas;
+        private TextBox tb_telNr;
     }
 }

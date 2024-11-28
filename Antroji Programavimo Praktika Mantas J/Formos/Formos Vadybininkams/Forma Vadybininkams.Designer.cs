@@ -35,9 +35,9 @@
             lbl_vartVardas = new Label();
             lbl_ID = new Label();
             lbl_grupesMokesciai = new Label();
-            dataGridView1 = new DataGridView();
+            dtgrdMokesciai = new DataGridView();
             label1 = new Label();
-            dataGridView2 = new DataGridView();
+            dtgrdGyventojai = new DataGridView();
             btn_keistiMokesti = new Button();
             btb_istrintiMokesti = new Button();
             btn_sukurtiNauja = new Button();
@@ -47,8 +47,8 @@
             lbl_pasirinktasMokestis = new Label();
             lbl_pasirinktasGyventojas = new Label();
             btb_perziuretiVartotoja = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dtgrdMokesciai).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dtgrdGyventojai).BeginInit();
             SuspendLayout();
             // 
             // lbl_grupesAdresas
@@ -117,14 +117,14 @@
             // 
             // dataGridView1
             // 
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(9, 111);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(1256, 276);
-            dataGridView1.TabIndex = 12;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dtgrdMokesciai.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dtgrdMokesciai.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dtgrdMokesciai.Location = new Point(9, 111);
+            dtgrdMokesciai.Name = "dataGridView1";
+            dtgrdMokesciai.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dtgrdMokesciai.Size = new Size(1256, 276);
+            dtgrdMokesciai.TabIndex = 12;
+            dtgrdMokesciai.CellContentClick += dtgrdMokesciai_CellContentClick;
             // 
             // label1
             // 
@@ -138,14 +138,14 @@
             // 
             // dataGridView2
             // 
-            dataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(12, 442);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView2.Size = new Size(1256, 276);
-            dataGridView2.TabIndex = 14;
-            dataGridView2.CellContentClick += dataGridView2_CellContentClick;
+            dtgrdGyventojai.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dtgrdGyventojai.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dtgrdGyventojai.Location = new Point(12, 442);
+            dtgrdGyventojai.Name = "dataGridView2";
+            dtgrdGyventojai.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dtgrdGyventojai.Size = new Size(1256, 276);
+            dtgrdGyventojai.TabIndex = 14;
+            dtgrdGyventojai.CellContentClick += dtgrdGyventojai_CellContentClick;
             // 
             // btn_keistiMokesti
             // 
@@ -250,9 +250,9 @@
             Controls.Add(btn_sukurtiNauja);
             Controls.Add(btb_istrintiMokesti);
             Controls.Add(btn_keistiMokesti);
-            Controls.Add(dataGridView2);
+            Controls.Add(dtgrdGyventojai);
             Controls.Add(label1);
-            Controls.Add(dataGridView1);
+            Controls.Add(dtgrdMokesciai);
             Controls.Add(lbl_grupesMokesciai);
             Controls.Add(lbl_ID);
             Controls.Add(lbl_grupesAdresas);
@@ -263,8 +263,8 @@
             Name = "Forma_Vadybininkams";
             Text = "Forma_Vadybininkams";
             Load += Forma_Vadybininkams_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dtgrdMokesciai).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dtgrdGyventojai).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -278,9 +278,9 @@
         private Label lbl_vartVardas;
         private Label lbl_ID;
         private Label lbl_grupesMokesciai;
-        private DataGridView dataGridView1;
+        private DataGridView dtgrdMokesciai;
         private Label label1;
-        private DataGridView dataGridView2;
+        private DataGridView dtgrdGyventojai;
         private Button btn_keistiMokesti;
         private Button btb_istrintiMokesti;
         private Button btn_sukurtiNauja;
