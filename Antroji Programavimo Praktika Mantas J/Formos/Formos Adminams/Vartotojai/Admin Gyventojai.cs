@@ -1,4 +1,6 @@
 ﻿using Antroji_Programavimo_Praktika_Mantas_J_.Aidles;
+using Antroji_Programavimo_Praktika_Mantas_J_.Aidles.VartLogic;
+using Antroji_Programavimo_Praktika_Mantas_J_.Formos.DataGridams;
 using Antroji_Programavimo_Praktika_Mantas_J_.Grupes;
 using Antroji_Programavimo_Praktika_Mantas_J_.MokejimaiPaslaugos;
 using Antroji_Programavimo_Praktika_Mantas_J_.Vartotojas;
@@ -12,12 +14,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Antroji_Programavimo_Praktika_Mantas_J_.Formos.GyventojoFormos;
 
 namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vartotojai
 {
     public partial class Admin_Gyventojai : Form
     {
         public MyDBContext context { get; set; }
+        DatagridFillerGyventojai datagridFillerGyventojai = new DatagridFillerGyventojai();
         public Administratorius administratoriusSelected { get; set; }
         public VartotojuGrupe vartotojuGrupeSelected { get; set; }
         public Gyventojas gyventojasSelected { get; set; }
@@ -30,59 +34,6 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vartoto
         private void Admin_Gyventojai_Load(object sender, EventArgs e)
         {
             atnaujintiTeksta();
-        }
-
-        private void atnaujitiGyventojusVisus()
-        {
-            gyventojai = context.Naudotojai
-           .OfType<Gyventojas>()
-           .ToList();
-            dtgrd_gyventojai.DataSource = gyventojai;
-            rodytiKaReikia();
-        }
-        public void rodytiKaReikia()
-        {
-            dtgrd_gyventojai.Columns["VartotojuGrupe"].Visible = false;
-            dtgrd_gyventojai.Columns["naud_tipas"].Visible = false;
-            if (!administratoriusSelected.adm_vyriausiasis)
-            {
-                dtgrd_gyventojai.Columns["naud_slaptazodis"].Visible = false;
-            }
-            else
-            {
-                dtgrd_gyventojai.Columns["naud_slaptazodis"].HeaderText = "Naudotojo Slaptazodis";
-            }
-            dtgrd_gyventojai.Columns["naud_ID"].HeaderText = "Naudotojo ID";
-            dtgrd_gyventojai.Columns["naud_ID"].DisplayIndex = 0;
-            dtgrd_gyventojai.Columns["gyv_gimimoData"].HeaderText = "Vart. Gymimo Data";
-            dtgrd_gyventojai.Columns["naud_vardas"].HeaderText = "Vart. Vardas";
-            dtgrd_gyventojai.Columns["naud_pavarde"].HeaderText = "Vart. Pavardė";
-            dtgrd_gyventojai.Columns["naud_prisijungimoVardas"].HeaderText = "Paskyros Vardas";
-            dtgrd_gyventojai.Columns["naud_elPastas"].HeaderText = "El. Paštas";
-            dtgrd_gyventojai.Columns["naud_telNumeris"].HeaderText = "Telefono Numeris";
-            dtgrd_gyventojai.Columns["gyv_vartGID"].HeaderText = "Pris. Gr. ID";
-            dtgrd_gyventojai.Columns["gyv_permoka"].HeaderText = "Permoka (Eur.)";
-        }
-        public void atnaujintiGyventojusGrupe()
-        {
-            if (vartotojuGrupeSelected != null)
-            {
-                gyventojai = context.Naudotojai
-                .OfType<Gyventojas>()
-                .Where(n => n.gyv_vartGID == vartotojuGrupeSelected.VartG_ID)
-                .ToList();
-                dtgrd_gyventojai.DataSource = gyventojai;
-                rodytiKaReikia();
-            }
-        }
-        public void atnaujintiGyventojusNepriskirtus()
-        {
-            gyventojai = context.Naudotojai
-            .OfType<Gyventojas>()
-            .Where(n => n.gyv_vartGID == null)
-            .ToList();
-            dtgrd_gyventojai.DataSource = gyventojai;
-            rodytiKaReikia();
         }
         private void atnaujintiTeksta()
         {
@@ -102,77 +53,52 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vartoto
 
         private void btn_rodytiGrupes_Click(object sender, EventArgs e)
         {
-            atnaujintiGyventojusGrupe();
+            if (vartotojuGrupeSelected != null)datagridFillerGyventojai.fillDatagrid(context, dtgrd_gyventojai, vartotojuGrupeSelected.VartG_ID, administratoriusSelected.adm_vyriausiasis);
         }
 
         private void btn_rodytiVisus_Click(object sender, EventArgs e)
         {
-            atnaujitiGyventojusVisus();
+            datagridFillerGyventojai.fillDatagrid(context, dtgrd_gyventojai, -1, administratoriusSelected.adm_vyriausiasis);
         }
 
         private void btn_rodytiNepriskirtus_Click(object sender, EventArgs e)
         {
-            atnaujintiGyventojusNepriskirtus();
+            datagridFillerGyventojai.fillDatagrid(context,dtgrd_gyventojai,null,administratoriusSelected.adm_vyriausiasis);
         }
 
         private void dtgrd_gyventojai_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                var pasirinktaEilute = dtgrd_gyventojai.Rows[e.RowIndex];
-                gyventojasSelected = (Gyventojas)pasirinktaEilute.DataBoundItem;
-                lbl_pasirinktasGyventojas.Text = "Pasirinktas Gyventojas: " + gyventojasSelected.naud_vardas + " " + gyventojasSelected.naud_pavarde;
-            }
+            gyventojasSelected = selectorForAll.selectItem<Gyventojas>(dtgrd_gyventojai, e);
+            if (gyventojasSelected != null) lbl_pasirinktasGyventojas.Text = "Pasirinktas Gyventojas: " + gyventojasSelected.naud_prisijungimoVardas + " " + gyventojasSelected.naud_ID;
+            else lbl_pasirinktasGyventojas.Text = "Pasirinktas Gyventojas: ";
         }
 
         private void btn_priskirti_Click(object sender, EventArgs e)
         {
-            if (gyventojasSelected != null && vartotojuGrupeSelected != null)
-            {
-                gyventojasSelected.gyv_vartGID = vartotojuGrupeSelected.VartG_ID;
-                context.SaveChanges();
-            }
+            assignerGyventojasToGrupe.assignGyventojasToGrupe(context, gyventojasSelected, vartotojuGrupeSelected);
         }
 
         private void btn_kurti_Click(object sender, EventArgs e)
         {
-            Admin_Kurti_G admin_Kurti_G = new Admin_Kurti_G();
-            admin_Kurti_G.context = context;
-            admin_Kurti_G.ShowDialog();
+            AdministratoriausFormos.atidarytiGyvKurti(context);
         }
 
         private void btn_redaguoti_Click(object sender, EventArgs e)
         {
-            if (gyventojasSelected != null)
-            {
-                Admin_Redaguoti_G admin_Redaguoti_G = new Admin_Redaguoti_G();
-                admin_Redaguoti_G.context = context;
-                admin_Redaguoti_G.vartotojuGrupeSelected = vartotojuGrupeSelected;
-                admin_Redaguoti_G.administratoriusSelected = administratoriusSelected;
-                admin_Redaguoti_G.gyventojasSelected = gyventojasSelected;
-                admin_Redaguoti_G.ShowDialog();
-            }
+            AdministratoriausFormos.atidarytiGyvRedaguoti(context, gyventojasSelected, administratoriusSelected, vartotojuGrupeSelected);
         }
 
         private void btn_atskirti_Click(object sender, EventArgs e)
         {
-            if (gyventojasSelected != null)
-            {
-                gyventojasSelected.gyv_vartGID = null;
-                context.SaveChanges();
-            }
+            unassignerGyventojas.unassignGyventojas(context, gyventojasSelected);
         }
 
         private void btn_istrinti_Click(object sender, EventArgs e)
         {
-            if (gyventojasSelected != null)
-            {
-                context.Naudotojai.Remove(gyventojasSelected);
-                context.SaveChanges();
-                gyventojasSelected = null;
-                lbl_pasirinktasGyventojas.Text = "Pasirinktas Gyventojas: ";
-                atnaujitiGyventojusVisus();
-            }
+            deleterFull deleter = new deleterFull(context);
+            deleter.deleteAll(gyventojasSelected);
+            lbl_pasirinktasGyventojas.Text = "Pasirinktas Gyventojas: ";
+            datagridFillerGyventojai.fillDatagrid(context, dtgrd_gyventojai, -1, administratoriusSelected.adm_vyriausiasis);
         }
     }
 }

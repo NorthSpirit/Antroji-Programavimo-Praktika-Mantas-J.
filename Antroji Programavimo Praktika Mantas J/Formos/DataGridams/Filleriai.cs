@@ -78,7 +78,7 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.DataGridams
 
     //ID Neegzistuoja
 
-    public class DatagridFillerVartG : DatagridFillerGeneric
+    public class DatagridFillerVartGTest : DatagridFillerGeneric
     {
         public void fillDatagrid(MyDBContext context, DataGridView datagrid)
         {
@@ -107,7 +107,20 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.DataGridams
             datagrid.Columns["vartG_ID"].DisplayIndex = 0;
         }
     }
+    public class DatagridFillerVartG : DatagridFillerGeneric
+    {
+        public void fillDatagrid(MyDBContext context, DataGridView datagrid)
+        {
 
+            List<VartotojuGrupe> vartotojuGrupes = context.vartotojuGrupes.ToList();
+
+            datagrid.DataSource = vartotojuGrupes;
+            datagrid.Columns["VartG_adresas"].HeaderText = "Vartotjų Grupės Adresas";
+            datagrid.Columns["VartG_pavadinimas"].HeaderText = "Vartotojų Grupės Pavadinimas";
+            datagrid.Columns["vartG_ID"].HeaderText = "Grupės ID";
+            datagrid.Columns["vartG_ID"].DisplayIndex = 0;
+        }
+    }
     //Vartotoju
     //ID Neegzistuoja
 
@@ -132,7 +145,7 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.DataGridams
                 }
                 )
                 .ToList();
-
+            datagrid.DataSource = rodymui;
             if (!showPass) datagrid.Columns["naud_slaptazodis"].Visible = false;
             else datagrid.Columns["naud_slaptazodis"].HeaderText = "Naudotojo Slaptažodis";
 
@@ -151,7 +164,6 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.DataGridams
             datagrid.Columns["naud_telNumeris"].HeaderText = "Telefono Numeris";
         }
     }
-
     //ID neprivalomas
 
     public class DatagridFillerGyventojai : DatagridFillerVartotojams
@@ -186,13 +198,14 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.DataGridams
 
             datagrid.Columns["naud_tipas"].Visible = false;
             datagrid.Columns["VartotojuGrupe"].Visible = false;
-            datagrid.Columns["naud_slaptazodis"].Visible = false;
             datagrid.Columns["gyv_vartGID"].Visible = false;
             datagrid.Columns["gyv_gyvenimojiVieta"].HeaderText = "Gyventojo adresas";
             datagrid.Columns["gyv_gimimoData"].HeaderText = "Gim. Data";
             datagrid.Columns["gyv_permoka"].HeaderText = "Sukaupta permoka (Eur.)";
             datagrid.Columns["naud_ID"].HeaderText = "Gyventojo ID";
             datagrid.Columns["naud_vardas"].HeaderText = "Gyv. Vardas";
+            datagrid.Columns["naud_elPastas"].HeaderText = "El Paštas";
+            datagrid.Columns["naud_telNumeris"].HeaderText = "Tel Numeris";
             datagrid.Columns["naud_pavarde"].HeaderText = "Gyv. Pavarde";
             datagrid.Columns["naud_prisijungimoVardas"].HeaderText = "Gyv. Paskyros Vardas";
         }
@@ -209,7 +222,7 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.DataGridams
                 .Where(g => g.vady_vartGID == null)
                 .ToList();
             }
-            else if (baseID >= 0)
+            else if (baseID <= 0)
             {
                 vadybininkai = context.Naudotojai
                 .OfType<Vadybininkas>()

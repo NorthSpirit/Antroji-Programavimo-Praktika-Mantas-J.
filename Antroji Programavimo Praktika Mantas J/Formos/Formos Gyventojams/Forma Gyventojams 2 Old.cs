@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+//Forma perdaryta nuo nulio, ziureti Forma Gyventojams 2, sita versija nebenaudojama
 namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos
 {
     public partial class Forma_Gyventojams_2Old : Form

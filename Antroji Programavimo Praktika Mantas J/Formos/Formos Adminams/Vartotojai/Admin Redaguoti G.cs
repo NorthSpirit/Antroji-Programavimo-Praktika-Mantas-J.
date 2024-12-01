@@ -1,4 +1,6 @@
 ﻿using Antroji_Programavimo_Praktika_Mantas_J_.Aidles;
+using Antroji_Programavimo_Praktika_Mantas_J_.Aidles.VartLogic;
+using Antroji_Programavimo_Praktika_Mantas_J_.Formos.DataGridams;
 using Antroji_Programavimo_Praktika_Mantas_J_.Grupes;
 using Antroji_Programavimo_Praktika_Mantas_J_.MokejimaiPaslaugos;
 using Antroji_Programavimo_Praktika_Mantas_J_.Vartotojas;
@@ -12,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Antroji_Programavimo_Praktika_Mantas_J_.Aidles.GyventojasUpdateService;
 
 namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vartotojai
 {
@@ -29,6 +32,8 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vartoto
         string tempVieta;
         string tempSlaptazodis;
 
+        DatagridFillerPaslaugos datagridFillerPaslaugos = new DatagridFillerPaslaugos();
+        DatagridFillerMokesciai datagridFillerMokesciai = new DatagridFillerMokesciai();
         private Gyventojas tempGyventojas;
         public VartotojuGrupe vartotojuGrupeSelected { get; set; }
         public MyDBContext context { get; set; }
@@ -44,7 +49,28 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vartoto
 
         private void Admin_Redaguoti_G_Load(object sender, EventArgs e)
         {
-
+            datagridFillerPaslaugos.fillDatagrid(context, dtgrd_grupesMokesciai, gyventojasSelected.gyv_vartGID);
+            datagridFillerMokesciai.fillDatagrid(context, dtgrd_mokejimai, gyventojasSelected.naud_ID);
+            uzpildytiText();
+            uzpildytiTemp();
+            grupesMokesciai();
+            vartotojoMokesciai();
+        }
+        private void uzpildytiText()
+        {
+            lbl_error.Text = "";
+            label1.Text = "Vartotojo ID: " + gyventojasSelected.naud_ID;
+            tb_data.Text = gyventojasSelected.gyv_gimimoData;
+            tb_elPastas.Text = gyventojasSelected.naud_elPastas;
+            tb_paskyrosVardas.Text = gyventojasSelected.naud_prisijungimoVardas;
+            tb_pavarde.Text = gyventojasSelected.naud_pavarde;
+            tb_permoka.Text = gyventojasSelected.gyv_permoka.ToString();
+            tb_telNr.Text = gyventojasSelected.naud_telNumeris;
+            tb_vardas.Text = gyventojasSelected.naud_vardas;
+            tb_vieta.Text = gyventojasSelected.gyv_gyvenimojiVieta;
+        }
+        private void uzpildytiTemp()
+        {
             tempVieta = gyventojasSelected.gyv_gyvenimojiVieta;
             tempVardas = gyventojasSelected.naud_vardas;
             tempTelNr = gyventojasSelected.naud_telNumeris;
@@ -54,22 +80,6 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vartoto
             tempPastas = gyventojasSelected.naud_elPastas;
             tempGymData = gyventojasSelected.gyv_gimimoData;
             tempSlaptazodis = gyventojasSelected.naud_slaptazodis;
-            lbl_error.Text = "";
-            label1.Text = "Vartotojo ID: " + gyventojasSelected.naud_ID;
-            uzpildytiLaukus();
-            grupesMokesciai();
-            vartotojoMokesciai();
-        }
-        private void uzpildytiLaukus()
-        {
-            tb_data.Text = gyventojasSelected.gyv_gimimoData;
-            tb_elPastas.Text = gyventojasSelected.naud_elPastas;
-            tb_paskyrosVardas.Text = gyventojasSelected.naud_prisijungimoVardas;
-            tb_pavarde.Text = gyventojasSelected.naud_pavarde;
-            tb_permoka.Text = gyventojasSelected.gyv_permoka.ToString();
-            tb_telNr.Text = gyventojasSelected.naud_telNumeris;
-            tb_vardas.Text = gyventojasSelected.naud_vardas;
-            tb_vieta.Text = gyventojasSelected.gyv_gyvenimojiVieta;
         }
         private void pasirinktasGyvMokestis()
         {
@@ -95,6 +105,7 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vartoto
         }
         private void grupesMokesciai()
         {
+
             if (paslaugos != null)
             {
                 paslaugos = context.Paslaugos
@@ -133,123 +144,44 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vartoto
         }
         private void btn_issaugoti_Click(object sender, EventArgs e)
         {
-            DateTime datatTikrinti;
-            decimal skaiciusTikrininti;
-            bool trydata = DateTime.TryParse(tb_data.Text, out datatTikrinti);
-            bool tryint = decimal.TryParse(tb_permoka.Text, out skaiciusTikrininti);
-            if (trydata && tryint)
-            {
-                gyventojasSelected.gyv_gimimoData = tb_data.Text;
-                gyventojasSelected.naud_elPastas = tb_elPastas.Text;
-                gyventojasSelected.naud_prisijungimoVardas = tb_paskyrosVardas.Text;
-                gyventojasSelected.naud_pavarde = tb_pavarde.Text;
-                gyventojasSelected.gyv_permoka = skaiciusTikrininti;
-                gyventojasSelected.naud_telNumeris = tb_telNr.Text;
-                gyventojasSelected.naud_vardas = tb_vardas.Text;
-                gyventojasSelected.gyv_gyvenimojiVieta = tb_vieta.Text;
-                context.SaveChanges();
-            }
-            else
-            {
-                if (!trydata && tryint)
-                {
-                    lbl_error.Text = "Įveskite tinkamą datą (yyyy-MM-dd)";
-                }
-                else if (trydata && !tryint)
-                {
-                    lbl_error.Text = "Įveskite permoką eurais";
-                }
-                else
-                {
-                    lbl_error.Text = "Įveskite tinkamą datą (yyyy-MM-dd) ir Įveskite permoką eurais";
-                }
-            }
+            lbl_error.Text = GyventojasUpdateService.UpdateGyventojas(context, gyventojasSelected, tb_vardas.Text, tb_pavarde.Text, tb_elPastas.Text, tb_telNr.Text, tb_vieta.Text, tb_data.Text, tb_permoka.Text, tb_paskyrosVardas.Text);
         }
 
         private void dtgrd_mokejimai_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                var pasirinktaEilute = dtgrd_mokejimai.Rows[e.RowIndex];
-                mokejimasSelected = (Mokejimas)pasirinktaEilute.DataBoundItem;
-                pasirinktasGyvMokestis();
-            }
+            mokejimasSelected = selectorForAll.selectItem<Mokejimas>(dtgrd_mokejimai, e);
+            pasirinktasGyvMokestis();
         }
 
         private void dtgrd_grupesMokesciai_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                var pasirinktaEilute = dtgrd_grupesMokesciai.Rows[e.RowIndex];
-                paslaugaSelected = (Paslauga)pasirinktaEilute.DataBoundItem;
-                pasirinkasGruMokestis();
-            }
+            paslaugaSelected = selectorForAll.selectItem<Paslauga>(dtgrd_grupesMokesciai, e);
+            pasirinkasGruMokestis();
         }
 
         private void btn_priskirtiVienam_Click(object sender, EventArgs e)
         {
-            if (gyventojasSelected != null && paslaugaSelected != null)
-            {
-                DateTime now = DateTime.Now;
-                DateTime terminoPradzia = new DateTime(now.Year, now.Month, 1).AddMonths(1);
-                DateTime terminoPabaiga = terminoPradzia.AddMonths(1).AddDays(-1);
-                Mokejimas naujas = new Mokejimas
-                {
-                    mok_ikainis = paslaugaSelected.pasl_ikainis,
-                    mok_matovienetas = paslaugaSelected.pasl_matovienetas,
-                    mok_pavadinimas = paslaugaSelected.pasl_pavadinimas,
-                    mok_terminoPradzia = terminoPradzia,
-                    mok_terminoPabaiga = terminoPabaiga,
-                    mok_vartotojoID = gyventojasSelected.naud_ID,
-                    mok_kiekis = 0,
-                    mok_pilnaKaina = 0,
-                    mok_likutis = 0,
-                };
-                context.Mokejimai.Add(naujas);
-                context.SaveChanges();
-                vartotojoMokesciai();
-            }
+            assignerMokestisToGyventojas.assignMokestisToGyventojas(context, gyventojasSelected, paslaugaSelected);
+            datagridFillerMokesciai.fillDatagrid(context, dtgrd_mokejimai, gyventojasSelected.naud_ID);
         }
 
         private void btn_trinti_Click(object sender, EventArgs e)
         {
-            if (mokejimasSelected != null)
-            {
-                context.Mokejimai.Remove(mokejimasSelected);
-                context.SaveChanges();
-                vartotojoMokesciai();
-                pasirinktasGyvMokestis();
-                mokejimasSelected = null;
-            }
+            deleterFull deleter = new deleterFull(context);
+            deleter.deleteAll(mokejimasSelected);
+            lbl_pasirinktasMokestis.Text = "Pasirinktas Mokestis: ";
+            datagridFillerMokesciai.fillDatagrid(context, dtgrd_mokejimai, gyventojasSelected.naud_ID);
         }
 
         private void btn_atstatyti_Click(object sender, EventArgs e)
         {
-            gyventojasSelected.gyv_gimimoData = tempGymData;
-            gyventojasSelected.naud_elPastas = tempPastas;
-            gyventojasSelected.naud_prisijungimoVardas = tempPasVardas;
-            gyventojasSelected.naud_pavarde = tempPavarde;
-            gyventojasSelected.gyv_permoka = tempPermoka;
-            gyventojasSelected.naud_telNumeris = tempTelNr;
-            gyventojasSelected.naud_vardas = tempVardas;
-            gyventojasSelected.gyv_gyvenimojiVieta = tempVieta;
-            gyventojasSelected.naud_slaptazodis = tempSlaptazodis;
-
-            context.SaveChanges();
-            uzpildytiLaukus();
+            lbl_error.Text = GyventojasUpdateService.UpdateGyventojas(context, gyventojasSelected, tempVardas, tempPavarde, tempPastas, tempTelNr, tempVieta, tempGymData, tempPermoka.ToString(), tempPasVardas);
+            uzpildytiText();
         }
 
         private void btn_slaptazodis_Click(object sender, EventArgs e)
         {
-            if (administratoriusSelected.adm_vyriausiasis)
-            {
-                gyventojasSelected.naud_slaptazodis = gyventojasSelected.naud_prisijungimoVardas;
-                lbl_error.Text = "Slaptažodis pakeistas į prisijungimo vardą.";
-            }
-            else
-            {
-                lbl_error.Text = "Tik Vyr. Administratoriai gali atstatyi slaptažodį.";
-            }
+            lbl_error.Text = PasswordRestorationService.restorePassword(context, administratoriusSelected.adm_vyriausiasis, gyventojasSelected);
         }
     }
 }

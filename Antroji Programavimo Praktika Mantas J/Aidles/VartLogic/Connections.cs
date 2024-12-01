@@ -156,7 +156,7 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Aidles.VartLogic
             Administratorius administratoriusSelected = naudotojasSelected as Administratorius;
             if (administratoriusSelected != null)
             {
-                AdminuFormos.atidaryti1(context, administratoriusSelected);
+                AdministratoriausFormos.atidaryti1(context, administratoriusSelected);
                 errorLabel.Text = "Vadybininkas prisijungė";
             }
             else

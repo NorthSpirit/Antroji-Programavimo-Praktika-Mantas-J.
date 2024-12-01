@@ -27,14 +27,7 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams
 
         private void btn_isaugoti_Click(object sender, EventArgs e)
         {
-            VartotojuGrupe naujaGrupe = new VartotojuGrupe
-            {
-                VartG_adresas = tb_grupesAdresas.Text,
-                VartG_pavadinimas = tb_pavadinimas.Text,
-            };
-            context.vartotojuGrupes.Add(naujaGrupe);
-            context.SaveChanges();
-            lbl_extra.Text = "Nauja grupė sukurta.";
+            lbl_extra.Text = VartGrupeCreationService.CreateVartGrupe(context, tb_pavadinimas.Text, tb_grupesAdresas.Text);
         }
 
         private void btn_atsaukti_Click(object sender, EventArgs e)

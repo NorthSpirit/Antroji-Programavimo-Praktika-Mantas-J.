@@ -28,4 +28,33 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Aidles.VartLogic
             return default;
         }
     }
+    public class selectorSpecialTest
+    {
+        /*
+if (e.RowIndex >= 0)
+{
+    var pasirinktaEilute = (dynamic)dtgrd_vartGrupes.Rows[e.RowIndex].DataBoundItem;
+    VartotojuGrupeSelected = pasirinktaEilute.VartotojuGrupe;
+    atnaujintiTeksta();
+}
+*/
+        public static T selectItemSp<T>(DataGridView dataGrid, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var eiluteSelect = dataGrid.Rows[e.RowIndex];
+                var selecteditem = eiluteSelect.DataBoundItem;
+                if (selecteditem is T t) return t;
+                else
+                {
+                    var selectedItemT = selecteditem
+                    .GetType()
+                    .GetProperties()
+                    .FirstOrDefault(n => n.PropertyType == typeof(T));
+                    if (selectedItemT is T t2) return t2;
+                }
+            }
+            return default;
+        }
+    }
 }

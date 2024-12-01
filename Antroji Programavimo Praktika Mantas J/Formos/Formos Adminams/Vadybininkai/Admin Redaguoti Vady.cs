@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Antroji_Programavimo_Praktika_Mantas_J_.Aidles.GyventojasUpdateService;
 
 namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vadybininkai
 {
@@ -35,57 +36,42 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams.Vadybin
 
         private void btn_issaugoti_Click(object sender, EventArgs e)
         {
-            vadybininkasSelected.naud_elPastas = tb_elPastas.Text;
-            vadybininkasSelected.naud_prisijungimoVardas = tb_paskyrosVardas.Text;
-            vadybininkasSelected.naud_pavarde = tb_pavarde.Text;
-            vadybininkasSelected.naud_telNumeris = tb_telNr.Text;
-            vadybininkasSelected.naud_vardas = tb_vardas.Text;
-            context.SaveChanges();
+            lbl_error.Text = VadybininkasUpdateService.UpdateVadybininkas(context, vadybininkasSelected, tb_vardas.Text, tb_pavarde.Text, tb_elPastas.Text, tb_telNr.Text, tb_paskyrosVardas.Text);
         }
 
         private void btn_atstatyti_Click(object sender, EventArgs e)
         {
-            vadybininkasSelected.naud_elPastas = tempPastas;
-            vadybininkasSelected.naud_prisijungimoVardas = tempPasVardas;
-            vadybininkasSelected.naud_pavarde = tempPavarde;
-            vadybininkasSelected.naud_telNumeris = tempTelNr;
-            vadybininkasSelected.naud_vardas = tempVardas;
-            context.SaveChanges();
+            lbl_error.Text = VadybininkasUpdateService.UpdateVadybininkas(context, vadybininkasSelected, tempVardas, tempPavarde, tempPastas, tempTelNr, tempPasVardas);
             uzpildytiLaukus();
         }
 
         private void uzpildytiLaukus()
         {
+            lbl_error.Text = "";
+            label1.Text = "Vadybininko ID: " + vadybininkasSelected.naud_ID;
             tb_elPastas.Text = vadybininkasSelected.naud_elPastas;
             tb_paskyrosVardas.Text = vadybininkasSelected.naud_prisijungimoVardas;
             tb_pavarde.Text = vadybininkasSelected.naud_pavarde;
             tb_telNr.Text = vadybininkasSelected.naud_telNumeris;
             tb_vardas.Text = vadybininkasSelected.naud_vardas;
         }
-
-        private void Admin_Redaguoti_Vady_Load(object sender, EventArgs e)
+        private void uzpildytiTemp()
         {
             tempVardas = vadybininkasSelected.naud_vardas;
             tempTelNr = vadybininkasSelected.naud_telNumeris;
             tempPavarde = vadybininkasSelected.naud_pavarde;
             tempPasVardas = vadybininkasSelected.naud_prisijungimoVardas;
             tempPastas = vadybininkasSelected.naud_elPastas;
-            lbl_error.Text = "";
-            label1.Text = "Vadybininko ID: " + vadybininkasSelected.naud_ID;
+        }
+        private void Admin_Redaguoti_Vady_Load(object sender, EventArgs e)
+        {
+            uzpildytiTemp();
             uzpildytiLaukus();
         }
 
         private void btn_slaptazodis_Click(object sender, EventArgs e)
         {
-            if (administratoriusSelected.adm_vyriausiasis)
-            {
-                vadybininkasSelected.naud_slaptazodis = vadybininkasSelected.naud_prisijungimoVardas;
-                lbl_error.Text = "Slaptažodis pakeistas į prisijungimo vardą.";
-            }
-            else
-            {
-                lbl_error.Text = "Tik Vyr. Administratoriai gali atstatyi slaptažodį.";
-            }
+            lbl_error.Text = PasswordRestorationService.restorePassword(context, administratoriusSelected.adm_vyriausiasis, administratoriusSelected);
         }
     }
 }

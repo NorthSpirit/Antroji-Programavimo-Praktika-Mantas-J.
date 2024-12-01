@@ -26,10 +26,7 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Vadybininkams
 
         private void Paslaugos_Keitimas_Load(object sender, EventArgs e)
         {
-            tempPavadinimas = paslaugaSelected.pasl_pavadinimas;
-            tempMatoVienetas = paslaugaSelected.pasl_matovienetas;
-            tempIkainis = paslaugaSelected.pasl_ikainis.ToString();
-            lbl_error.Text = "";
+            sustatytiTemp();
             sustatytiTexta();
         }
 
@@ -50,9 +47,16 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Vadybininkams
         }
         private void sustatytiTexta()
         {
+            lbl_error.Text = "";
             tb_pavadinimas.Text = paslaugaSelected.pasl_pavadinimas;
             tb_matoVienetas.Text = paslaugaSelected.pasl_matovienetas;
             tb_Ikaitis.Text = paslaugaSelected.pasl_ikainis.ToString();
+        }
+        private void sustatytiTemp()
+        {
+            tempPavadinimas = paslaugaSelected.pasl_pavadinimas;
+            tempMatoVienetas = paslaugaSelected.pasl_matovienetas;
+            tempIkainis = paslaugaSelected.pasl_ikainis.ToString();
         }
     }
 }

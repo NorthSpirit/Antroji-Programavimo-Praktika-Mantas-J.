@@ -3,6 +3,7 @@ using Antroji_Programavimo_Praktika_Mantas_J_.Formos.DataGridams;
 using Antroji_Programavimo_Praktika_Mantas_J_.Grupes;
 using Antroji_Programavimo_Praktika_Mantas_J_.MokejimaiPaslaugos;
 using Antroji_Programavimo_Praktika_Mantas_J_.Vartotojas;
+using Antroji_Programavimo_Praktika_Mantas_J_.Vartotojas.Vartotojas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,14 +44,15 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Aidles
         }
     }
 
-    public class deleterNaudotojas : deleterGeneric<Naudotojas>
+    public class deleterNaudotojas<T> : deleterGeneric<T> where T : Naudotojas
     {
-        public void deleteMe(MyDBContext context, Naudotojas selectedItem)
+        public void deleteMe(MyDBContext context, T selectedItem)
         {
             context.Naudotojai.Remove(selectedItem);
             context.SaveChanges();
         }
     }
+
 
     public class deleterFull
     {
@@ -61,12 +63,15 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Aidles
             this.context = context;
             deleterList = new Dictionary<Type, object>
             {
-                {typeof(Naudotojas), new deleterNaudotojas() },
+                {typeof(Gyventojas), new deleterNaudotojas<Gyventojas>() },
+                {typeof(Vadybininkas), new deleterNaudotojas<Vadybininkas>() },
+                {typeof(Administratorius), new deleterNaudotojas<Administratorius>() },
                 {typeof(VartotojuGrupe), new deleterVartGrupe() },
                 {typeof(Paslauga), new deleterPaslauga() },
                 {typeof(Mokejimas), new deleterMokestis() }
             };
         }
+        
         public void deleteAll<T>(T selectedItem)
         {
             if (selectedItem == null) return;

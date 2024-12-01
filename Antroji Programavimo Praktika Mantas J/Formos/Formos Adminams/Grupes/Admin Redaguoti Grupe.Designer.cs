@@ -41,6 +41,7 @@
             btb_istrintiMokesti = new Button();
             btn_keistiMokesti = new Button();
             lbl_pasirinktasMokestis = new Label();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dtgrd_Paslaugos).BeginInit();
             SuspendLayout();
             // 
@@ -165,11 +166,21 @@
             lbl_pasirinktasMokestis.TabIndex = 22;
             lbl_pasirinktasMokestis.Text = "Pasirinktas Mokestis:";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(642, 38);
+            label1.Name = "label1";
+            label1.Size = new Size(38, 15);
+            label1.TabIndex = 23;
+            label1.Text = "label1";
+            // 
             // Admin_Redaguoti_Grupe
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1018, 450);
+            Controls.Add(label1);
             Controls.Add(lbl_pasirinktasMokestis);
             Controls.Add(btn_sukurtiNauja);
             Controls.Add(btb_istrintiMokesti);
@@ -206,5 +217,6 @@
         private Button btb_istrintiMokesti;
         private Button btn_keistiMokesti;
         private Label lbl_pasirinktasMokestis;
+        private Label label1;
     }
 }

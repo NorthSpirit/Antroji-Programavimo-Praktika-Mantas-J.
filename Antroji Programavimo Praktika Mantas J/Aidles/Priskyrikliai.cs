@@ -69,5 +69,50 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Aidles
             }
         }
     }
+    public class assignerGyventojasToGrupe
+    {
+        public static void assignGyventojasToGrupe(MyDBContext context, Gyventojas gyventojasSelected, VartotojuGrupe vartotojuGrupeSelected)
+        {
+            if (gyventojasSelected != null && vartotojuGrupeSelected != null)
+            {
+                gyventojasSelected.gyv_vartGID = vartotojuGrupeSelected.VartG_ID;
+                context.SaveChanges();
+            }
+        }
+    }
+    public class unassignerGyventojas
+    {
+        public static void unassignGyventojas(MyDBContext context, Gyventojas gyventojasSelected)
+        {
+            if (gyventojasSelected != null)
+            {
+                gyventojasSelected.gyv_vartGID = null;
+                context.SaveChanges();
+            }
+        }
+    }
+    public class assignerVadybininkasToGrupe
+    {
+        public static void assignVadybininkasToGrupe(MyDBContext context, Vadybininkas vadybininkasSelected, VartotojuGrupe vartotojuGrupeSelected)
+        {
+            if (vadybininkasSelected != null && vartotojuGrupeSelected != null)
+            {
+                vadybininkasSelected.vady_vartGID = vartotojuGrupeSelected.VartG_ID;
+                context.SaveChanges();
+
+            }
+        }
+    }
+    public class unassignerVadybininkas
+    {
+        public static void unassignVadybininkas(MyDBContext context, Vadybininkas vadybininkasSelected)
+        {
+            if (vadybininkasSelected != null)
+            {
+                vadybininkasSelected.vady_vartGID = null;
+                context.SaveChanges();
+            }
+        }
+    }
  
 }

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Antroji_Programavimo_Praktika_Mantas_J_.Formos.GyventojoFormos;
 
 namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams
 {
@@ -56,21 +57,18 @@ namespace Antroji_Programavimo_Praktika_Mantas_J_.Formos.Formos_Adminams
 
         private void btn_perziuretiAdmin_Click(object sender, EventArgs e)
         {
-            Admin_Administratoriai admin_Administratoriai = new Admin_Administratoriai();
-            admin_Administratoriai.context = context;
-            admin_Administratoriai.administratoriusSelected = administratoriusSelected;
-            admin_Administratoriai.ShowDialog();
+            AdministratoriausFormos.atidarytiAdminAdmin(context, administratoriusSelected);
         }
 
         private void btn_perziuretiGrupes_Click(object sender, EventArgs e)
         {
             Admin_Perziureti_Grupes admin_Perziureti_Grupes = new Admin_Perziureti_Grupes();
             admin_Perziureti_Grupes.context = context;
-            admin_Perziureti_Grupes.VartotojuGrupeSelected = vartotojuGrupeSelected;
+            admin_Perziureti_Grupes.vartotojuGrupeSelected = vartotojuGrupeSelected;
             admin_Perziureti_Grupes.ShowDialog();
-            if (admin_Perziureti_Grupes.VartotojuGrupeSelected != null)
+            if (admin_Perziureti_Grupes.vartotojuGrupeSelected != null)
             {
-                vartotojuGrupeSelected = admin_Perziureti_Grupes.VartotojuGrupeSelected;
+                vartotojuGrupeSelected = admin_Perziureti_Grupes.vartotojuGrupeSelected;
                 lbl_pasirinktaGrupe.Text = "Pasirinkta Grupe: " + vartotojuGrupeSelected.VartG_pavadinimas;
             }
             else
